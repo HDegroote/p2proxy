@@ -1,0 +1,14 @@
+FROM node:20-slim
+
+RUN useradd p2proxy
+USER p2proxy
+
+ENV WORKDIR=/home/p2proxy/ 
+
+COPY node_modules ${WORKDIR}/node_modules
+COPY package-lock.json ${WORKDIR}
+COPY package.json ${WORKDIR}
+COPY index.js ${WORKDIR}
+COPY client.js ${WORKDIR}
+
+ENTRYPOINT ["/home/p2proxy/client.js"]

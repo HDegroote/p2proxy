@@ -1,0 +1,41 @@
+{
+  "name": "p2proxy",
+  "version": "0.0.0",
+  "description": "A peer-to-peer proxy which can connect firewalled services",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && brittle test.js"
+  },
+  "bin": {
+    "p2proxy-client": "./client.js",
+    "p2proxy-server": "./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HDegroote/p2proxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "hyperdht",
+    "peer-to-peer"
+  ],
+  "author": "H. Degroote",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/HDegroote/p2proxy/issues"
+  },
+  "homepage": "https://github.com/HDegroote/p2proxy#readme",
+  "dependencies": {
+    "graceful-goodbye": "^1.3.0",
+    "hyper-cmd-lib-net": "^0.1.0",
+    "hypercore-id-encoding": "^1.3.0",
+    "hyperdht": "^6.14.0",
+    "pino": "^8.20.0",
+    "ready-resource": "^1.0.3"
+  },
+  "devDependencies": {
+    "b4a": "^1.6.6",
+    "brittle": "^3.5.0",
+    "standard": "^17.1.0"
+  }
+}
