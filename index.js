@@ -13,11 +13,17 @@ class ProxyServer extends ReadyResource {
       { bootstrap, connectionKeepAlive: keepAlive, seed }
     )
 
-    const firewall = (remotePublicKey) => {
-      return !b4a.equals(
+    const firewall = (remotePublicKey, payload, address) => {
+      const shouldBlock = !b4a.equals(
         remotePublicKey,
         this.dht.defaultKeyPair.publicKey
       )
+
+      if (shouldBlock) {
+        this.emit('firewall-block', { remotePublicKey, payload, address })
+      }
+
+      return shouldBlock
     }
 
     this.connectionCounter = 0
