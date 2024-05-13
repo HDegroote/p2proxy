@@ -55,12 +55,7 @@ async function main () {
   const proxy = new ProxyServer(
     seed, port, host, { logger, keepAlive, bootstrap }
   )
-  proxy.on('connection', ({ id, remotePublicKey }) => {
-    logger.info(`Opened connection ${id} with ${b4a.toString(remotePublicKey, 'hex')}`)
-  })
-  proxy.on('connection-close', ({ id, remotePublicKey }) => {
-    logger.info(`Closed connection ${id} with ${b4a.toString(remotePublicKey, 'hex')}`)
-  })
+  setupLogging(proxy, logger)
 
   goodbye(async () => {
     logger.info('Shutting down')
@@ -77,4 +72,20 @@ async function main () {
   logger.info(`Address: ${address.host}:${address.port}`)
 }
 
+function setupLogging (proxy, logger) {
+  proxy.on('connection', ({ id, remotePublicKey }) => {
+    logger.info(`Opened connection ${id} with ${b4a.toString(remotePublicKey, 'hex')}`)
+  })
+
+  proxy.on('connection-close', ({ id, remotePublicKey }) => {
+    logger.info(`Closed connection ${id} with ${b4a.toString(remotePublicKey, 'hex')}`)
+  })
+
+  proxy.on('firewall-block', ({ remotePublicKey, address }) => {
+    // TODO: consider rate limiting
+    const src = `${address?.host}:${address?.port}`
+    const pubKey = b4a.toString(remotePublicKey, 'hex')
+    logger.info(`Firewall blocked connection attempt from ${src} (public key ${pubKey})`)
+  })
+}
 main()
