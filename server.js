@@ -82,7 +82,6 @@ function setupLogging (proxy, logger) {
   })
 
   proxy.on('firewall-block', ({ remotePublicKey, address }) => {
-    // TODO: consider rate limiting
     const src = `${address?.host}:${address?.port}`
     const pubKey = b4a.toString(remotePublicKey, 'hex')
     logger.info(`Firewall blocked connection attempt from ${src} (public key ${pubKey})`)
