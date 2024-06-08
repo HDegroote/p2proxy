@@ -69,7 +69,8 @@ async function main () {
 
   const address = proxy.address
   logger.info(`Public key: ${b4a.toString(address.publicKey, 'hex')}`)
-  logger.info(`Address: ${address.host}:${address.port}`)
+  logger.info(`DHT address: ${address.host}:${address.port}`)
+  logger.info(`Proxying to ${host}:${port}`)
 }
 
 function setupLogging (proxy, logger) {
