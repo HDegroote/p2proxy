@@ -1,7 +1,6 @@
 FROM node:20-slim
 
-RUN useradd p2proxy
-USER p2proxy
+RUN useradd -u 1723 p2proxy
 
 ENV WORKDIR=/home/p2proxy/ 
 
@@ -10,5 +9,7 @@ COPY package-lock.json ${WORKDIR}
 COPY package.json ${WORKDIR}
 COPY index.js ${WORKDIR}
 COPY server.js ${WORKDIR}
+
+USER p2proxy
 
 ENTRYPOINT ["/home/p2proxy/server.js"]
